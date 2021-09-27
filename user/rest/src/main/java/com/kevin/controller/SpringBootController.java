@@ -1,38 +1,46 @@
 package com.kevin.controller;
 
-import com.kevin.dto.Order;
-import com.kevin.mapper.MybatisOrderItemMapper;
-import com.kevin.mapper.MybatisOrderMapper;
-import com.kevin.service.CommonService;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.kevin.entity.Order;
+import com.kevin.entity.User;
+import com.kevin.mapper.OrderMapper;
+import com.kevin.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class SpringBootController {
-//	@Resource
-//	private CityMapper cityMapper;
-	@Resource
-	private MybatisOrderMapper mybatisOrderMapper;
-	@Resource
-	private MybatisOrderItemMapper mybatisOrderItemMapper;
-	@Resource
-	private CommonService commonService;
 	@Autowired
-	private com.kevin.service.OrderService orderService;
+	private UserMapper userMapper;
+	@Autowired
+	private OrderMapper orderMapper;
 
-	@RequestMapping("/wr")
-	public List<Order> wr() {
-		List<Order> list = orderService.masterSlave();
+	@RequestMapping("/w")
+	public void w(long orderId, int userId){
+		Order order = new Order();
+		order.setOrderId(orderId);
+		order.setUserId(userId);
+		order.setStatus("status");
+		orderMapper.add(order);
+	}
+
+	@RequestMapping("/query")
+	public List<Order> query(){
+		List<Order> list = orderMapper.queryList();
 		return list;
 	}
 
 	@RequestMapping("/r")
-	public List<Order> r() {
-		List<Order> list =  mybatisOrderMapper.selectAll();
-		return list;
+	public IPage<User> r() {
+		IPage<User> page = new Page<>(1, 3);
+		IPage<User> userPage = userMapper.selectPageVo(page, 40);
+		List<User> userList = userPage.getRecords();
+		return page;
 	}
 }

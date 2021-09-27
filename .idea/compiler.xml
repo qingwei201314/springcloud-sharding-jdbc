@@ -6,22 +6,17 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="consumer" />
         <module name="dao" />
-        <module name="eureka" />
-        <module name="feign" />
         <module name="rest" />
-        <module name="user" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="ear" target="1.7" />
-      <module name="ejbs" target="1.7" />
-      <module name="eureka-server" target="1.7" />
-      <module name="logging" target="1.7" />
-      <module name="primary-source" target="1.7" />
-      <module name="projects" target="1.7" />
-      <module name="servlet" target="1.7" />
-      <module name="servlets" target="1.7" />
+      <module name="consumer" target="1.8" />
+      <module name="dao" target="1.8" />
+      <module name="rest" target="1.8" />
+      <module name="springcloud-sharding-jdbc" target="1.8" />
+      <module name="user" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>
